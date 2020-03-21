@@ -76,18 +76,25 @@ class top : public sc_module
 
 		instFingeEntradaExterna->extInput( *QextInput );
 
-		instProductor = new productor("instProductor", "doc/inputL0inv.txt");
+		#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+			char inputFile[] = "..\\doc\\inputL0inv.txt";
+			char outputFile[] = "..\\doc\\outputL0inv.txt";
+		#else
+			char inputFile[] = "doc/inputL0inv.txt";
+			char outputFile[] = "doc/outputL0inv.txt";
+		#endif
+
+		instProductor = new productor("instProductor", inputFile);
 		instProductor->	addrOut	( *QextAddr[0] );
 		instProductor->	dataOut	( *QextData[0] );
 		instProductor->	output	( *QioLR[0] );
 		instProductor->	input	( *QioRL[0]  ); 
 		
-		instConsumidor = new consumidor("instConsumidor", "doc/outputL0inv.txt");	
+		instConsumidor = new consumidor("instConsumidor", outputFile);
 		instConsumidor->addrIn	( *QextAddr[1] );
 		instConsumidor->dataIn	( *QextData[1] );
 		instConsumidor->input	( *QioLR[1] );
 		instConsumidor->output	( *QioRL[1] );
-
 
 	}
 
