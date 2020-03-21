@@ -77,8 +77,8 @@ class top : public sc_module
 		instFingeEntradaExterna->extInput( *QextInput );
 
 		#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-			char inputFile[] = "..\\doc\\inputL0inv.txt";
-			char outputFile[] = "..\\doc\\outputL0inv.txt";
+			char inputFile[] = "doc\\inputL0inv.txt";
+			char outputFile[] = "doc\\outputL0inv.txt";
 		#else
 			char inputFile[] = "doc/inputL0inv.txt";
 			char outputFile[] = "doc/outputL0inv.txt";
