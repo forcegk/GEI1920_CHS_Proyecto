@@ -14,20 +14,18 @@ void MIPScore::LW(int reg, int dir){
 	regs[reg] = valor;
 }
 
-
-
 void MIPScore::codigoFiltrar() {
 
 	int i, j, tr, ti;
 
-	// el único motivo por el que se van a utilizar registros (Rt0, Rt1,...) es para poder utilizar las funciones LW y SW
-	// definidas en esta misma clase. De no ser por ello, se utilizarían variables normales
+	// el ï¿½nico motivo por el que se van a utilizar registros (Rt0, Rt1,...) es para poder utilizar las funciones LW y SW
+	// definidas en esta misma clase. De no ser por ello, se utilizarï¿½an variables normales
 
 	Rt8 = 1;				// elijo un registro cualquiera para pasar un valor no nulo
-	SW($t8, 0x3000 + 12);	// avisa al procesador anterior de que está listo
+	SW($t8, 0x3000 + 12);	// avisa al procesador anterior de que estï¿½ listo
 
-	Ra0 = 0x1000; // dirección datos de entrada
-	Ra1 = 0x2000; // dirección resultados
+	Ra0 = 0x1000; // direcciï¿½n datos de entrada
+	Ra1 = 0x2000; // direcciï¿½n resultados
 
 	while (true) {
 
@@ -41,14 +39,14 @@ void MIPScore::codigoFiltrar() {
 		if (Rt0 == 0)			// beq $t0, $0, esperaPosterior
 			goto esperaPosterior;
 
-		LW($t0, 0x3000 + 16);		// lee la "máscara" para saber qué frecuencias pasan y cuales no
+		LW($t0, 0x3000 + 16);		// lee la "mï¿½scara" para saber quï¿½ frecuencias pasan y cuales no
 
 		// esta es la frecuencia 0
 		i = 0;
 		LW($t1, Ra0 + (i << 3));		// carga la parte real
 		LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-		if( !(Rt0 & 0x01) )	{	// si el bit '0' de la máscara es 0, reduzco el peso de esta frecuencia en un factor 32
+		if( !(Rt0 & 0x01) )	{	// si el bit '0' de la mï¿½scara es 0, reduzco el peso de esta frecuencia en un factor 32
 			Rt1 >>= 5;
 			Rt2 >>= 5;
 		}
@@ -59,7 +57,7 @@ void MIPScore::codigoFiltrar() {
 		LW($t1, Ra0 + (i << 3));		// carga la parte real
 		LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-		if( !(Rt0 & 0x02) )	{	// si el bit '1' de la máscara es 0, reduzco el peso de esta frecuencia en un factor 32
+		if( !(Rt0 & 0x02) )	{	// si el bit '1' de la mï¿½scara es 0, reduzco el peso de esta frecuencia en un factor 32
 			Rt1 >>= 5;
 			Rt2 >>= 5;
 		}
@@ -70,7 +68,7 @@ void MIPScore::codigoFiltrar() {
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x04) )	{	// si el bit '2' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x04) )	{	// si el bit '2' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
@@ -82,7 +80,7 @@ void MIPScore::codigoFiltrar() {
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x08) )	{	// si el bit '3' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x08) )	{	// si el bit '3' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
@@ -94,7 +92,7 @@ void MIPScore::codigoFiltrar() {
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x10) )	{	// si el bit '4' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x10) )	{	// si el bit '4' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
@@ -106,7 +104,7 @@ void MIPScore::codigoFiltrar() {
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x20) )	{	// si el bit '5' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x20) )	{	// si el bit '5' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
@@ -118,19 +116,19 @@ void MIPScore::codigoFiltrar() {
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x40) )	{	// si el bit '6' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x40) )	{	// si el bit '6' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
 			SW($t1, Ra1 + (i << 3));		// almacena la parte real
 			SW($t2, Ra1 + (i << 3) + 4);	// almacena la parte img
 		}
-		// frecuencias 64 a 127		(incluida parte "reflejada", por eso sigue con 64 más)
+		// frecuencias 64 a 127		(incluida parte "reflejada", por eso sigue con 64 mï¿½s)
 		for(i=64; i<192; ++i){
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x80) )	{	// si el bit '7' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x80) )	{	// si el bit '7' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
@@ -142,7 +140,7 @@ void MIPScore::codigoFiltrar() {
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x40) )	{	// si el bit '6' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x40) )	{	// si el bit '6' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
@@ -154,7 +152,7 @@ void MIPScore::codigoFiltrar() {
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x20) )	{	// si el bit '5' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x20) )	{	// si el bit '5' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
@@ -166,7 +164,7 @@ void MIPScore::codigoFiltrar() {
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x10) )	{	// si el bit '4' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x10) )	{	// si el bit '4' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
@@ -178,7 +176,7 @@ void MIPScore::codigoFiltrar() {
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x08) )	{	// si el bit '3' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x08) )	{	// si el bit '3' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
@@ -190,7 +188,7 @@ void MIPScore::codigoFiltrar() {
 			LW($t1, Ra0 + (i << 3));		// carga la parte real
 			LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-			if( !(Rt0 & 0x04) )	{	// si el bit '2' de la máscara es 0, reduzco el peso de estas frecuencias en un factor 32
+			if( !(Rt0 & 0x04) )	{	// si el bit '2' de la mï¿½scara es 0, reduzco el peso de estas frecuencias en un factor 32
 				Rt1 >>= 5;
 				Rt2 >>= 5;
 			}
@@ -202,7 +200,7 @@ void MIPScore::codigoFiltrar() {
 		LW($t1, Ra0 + (i << 3));		// carga la parte real
 		LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-		if( !(Rt0 & 0x02) )	{	// si el bit '1' de la máscara es 0, reduzco el peso de esta frecuencia en un factor 32
+		if( !(Rt0 & 0x02) )	{	// si el bit '1' de la mï¿½scara es 0, reduzco el peso de esta frecuencia en un factor 32
 			Rt1 >>= 5;
 			Rt2 >>= 5;
 		}
@@ -213,17 +211,17 @@ void MIPScore::codigoFiltrar() {
 		LW($t1, Ra0 + (i << 3));		// carga la parte real
 		LW($t2, Ra0 + (i << 3) + 4);	// carga la parte img
 
-		if( !(Rt0 & 0x01) )	{	// si el bit '0' de la máscara es 0, reduzco el peso de esta frecuencia en un factor 32
+		if( !(Rt0 & 0x01) )	{	// si el bit '0' de la mï¿½scara es 0, reduzco el peso de esta frecuencia en un factor 32
 			Rt1 >>= 5;
 			Rt2 >>= 5;
 		}
 		SW($t1, Ra1 + (i << 3));		// almacena la parte real
 		SW($t2, Ra1 + (i << 3) + 4);	// almacena la parte img
 
-		// ahora se envían las señales de sincronismo y se vuelve a empezar
+		// ahora se envï¿½an las seï¿½ales de sincronismo y se vuelve a empezar
 
-		SW($t8, 0x3000 + 4);		// avisa al consumidor de que terminó
-		SW($t8, 0x3000 + 12);		// avisa al productor de que está listo
+		SW($t8, 0x3000 + 4);		// avisa al consumidor de que terminï¿½
+		SW($t8, 0x3000 + 12);		// avisa al productor de que estï¿½ listo
 		Ra0 ^= 0x800;				// truco para leer datos del otro bloque	( doble buffer o buffer ping-pong)
 		Ra1 ^= 0x800;				// truco para escribri resultados el otro bloque
 	}
@@ -235,10 +233,10 @@ void MIPScore::codigoL0(){
 	int calc1, calc2;
 
 	Rt8 = 1;				// elijo un registro cualquiera para pasar un valor no nulo
-	SW($t8, 0x3000 + 12);	// avisa al productor de que está listo
+	SW($t8, 0x3000 + 12);	// avisa al productor de que estï¿½ listo
 
-	Ra0 = 0x1000; // dirección datos de entrada
-	Ra1 = 0x2000; // dirección resultados
+	Ra0 = 0x1000; // direcciï¿½n datos de entrada
+	Ra1 = 0x2000; // direcciï¿½n resultados
 
 	while (true) {
 
@@ -254,16 +252,16 @@ void MIPScore::codigoL0(){
 
 		for (i = 0; i < 256; i+=2) {
 
-			// para obtener la dirección de los datos ha que "invertir" los bits de su dirección.
+			// para obtener la direcciï¿½n de los datos ha que "invertir" los bits de su direcciï¿½n.
 			j = i; k = 0;
-			for(n=0; n<8; ++n){	k<<=1;		k |= j & 1;		j>>=1; }		dir1 = k<<1;	// dirección 1er dato (real)
-			// se respite para la segunda dirección
+			for(n=0; n<8; ++n){	k<<=1;		k |= j & 1;		j>>=1; }		dir1 = k<<1;	// direcciï¿½n 1er dato (real)
+			// se respite para la segunda direcciï¿½n
 			j = i+1; k=0; 
-			for(n=0; n<8; ++n){	k<<=1;		k |= j & 1;		j>>=1; }		dir2 = k<<1;	// dirección 2do dato (real)
+			for(n=0; n<8; ++n){	k<<=1;		k |= j & 1;		j>>=1; }		dir2 = k<<1;	// direcciï¿½n 2do dato (real)
 
-			// sabemos que para el nivel 0 sólo hay parte real. Leemos 2 datos (reales) en 2 registros elegidos al azar
-			// el único motivo por el que se van a utilizar registros (Rt0, Rt1,...) es para poder utilizar las funciones LW y SW
-			// definidas en esta misma clase. De no ser por ello, se utilizarían variables normales
+			// sabemos que para el nivel 0 sï¿½lo hay parte real. Leemos 2 datos (reales) en 2 registros elegidos al azar
+			// el ï¿½nico motivo por el que se van a utilizar registros (Rt0, Rt1,...) es para poder utilizar las funciones LW y SW
+			// definidas en esta misma clase. De no ser por ello, se utilizarï¿½an variables normales
 
 			LW($t1, Ra0 + (dir1<<2) );
 			LW($t2, Ra0 + (dir2<<2) );
@@ -277,8 +275,8 @@ void MIPScore::codigoL0(){
 			SW($zero, Ra1 + (i << 3) + 12);		// la parte img es 0
 		}
 
-		SW($t8, 0x3000 + 4);		// avisa al consumidor de que terminó
-		SW($t8, 0x3000 + 12);		// avisa al productor de que está listo
+		SW($t8, 0x3000 + 4);		// avisa al consumidor de que terminï¿½
+		SW($t8, 0x3000 + 12);		// avisa al productor de que estï¿½ listo
 
 		Ra0 ^= 0x800;				// truco para leer datos del otro bloque	( doble buffer o buffer ping-pong)
 		Ra1 ^= 0x800;				// truco para escribri resultados el otro bloque
@@ -291,14 +289,14 @@ void MIPScore::codigoL1() {
 	int i, j, tr, ti;
 	int calc1, calc2;
 
-	// el único motivo por el que se van a utilizar registros (Rt0, Rt1,...) es para poder utilizar las funciones LW y SW
-	// definidas en esta misma clase. De no ser por ello, se utilizarían variables normales
+	// el ï¿½nico motivo por el que se van a utilizar registros (Rt0, Rt1,...) es para poder utilizar las funciones LW y SW
+	// definidas en esta misma clase. De no ser por ello, se utilizarï¿½an variables normales
 
 	Rt8 = 1;				// elijo un registro cualquiera para pasar un valor no nulo
-	SW($t8, 0x3000 + 12);	// avisa al procesador anterior de que está listo
+	SW($t8, 0x3000 + 12);	// avisa al procesador anterior de que estï¿½ listo
 
-	Ra0 = 0x1000; // dirección datos de entrada
-	Ra1 = 0x2000; // dirección resultados
+	Ra0 = 0x1000; // direcciï¿½n datos de entrada
+	Ra1 = 0x2000; // direcciï¿½n resultados
 
 	while (true) {
 
@@ -335,90 +333,140 @@ void MIPScore::codigoL1() {
 			}
 		}
 
-		SW($t8, 0x3000 + 4);		// avisa al consumidor de que terminó
-		SW($t8, 0x3000 + 12);		// avisa al productor de que está listo
+		SW($t8, 0x3000 + 4);		// avisa al consumidor de que terminï¿½
+		SW($t8, 0x3000 + 12);		// avisa al productor de que estï¿½ listo
 
 		Ra0 ^= 0x800;				// truco para leer datos del otro bloque	( doble buffer o buffer ping-pong)
 		Ra1 ^= 0x800;				// truco para escribri resultados el otro bloque
 	}
 }
-
-
 
 void MIPScore::codigoL0inv() {
+	
+	#define la(r1, inm)  lui(r1, inm); ori(r1, 0, inm)
+	
+	#define $i $s0
+	#define $j $s1
+	#define $k $s2
+	#define $n $s4
 
-	int i, j, k, n, dir1, dir2;
-	int calc1, calc2;
+	#define $dir1 $s5
+	#define $dir2 $s6
 
-	Rt8 = 1;				// elijo un registro cualquiera para pasar un valor no nulo
-	SW($t8, 0x3000 + 12);	// avisa al procesador anterior de que está listo
+	ori($t8, $0, 1);
+	SW($t8, 0x3000 + 12);  // TODO sumar
 
-	Ra0 = 0x1000; // dirección datos de entrada
-	Ra1 = 0x2000; // dirección resultados
+	// Establecemos direcciones de entrada y salida
+	ori($a0, $0, 0x1000);
+	ori($a1, $0, 0x2000);
 
-	while (true) {
+	while_true:
+		inicioEspera:
+			LW($t0, 0x3000);		// espera al procesador anterior
+			beq($t0, $0, inicioEspera);
+		//inicioEspera
 
-	inicioEspera:
-		LW($t0, 0x3000);		// espera al procesador anterior
-		if (Rt0 == 0)			// beq $t0, $0, inicioEspera
-			goto inicioEspera;
+		esperaPosterior:
+			LW($t0, 0x3000 + 8);	// espera al procesador posterior
+			beq($t0, $0, esperaPosterior);
 
-	esperaPosterior:
-		LW($t0, 0x3000 + 8);	// espera al procesador posterior
-		if (Rt0 == 0)			// beq $t0, $0, esperaPosterior
-			goto esperaPosterior;
+			// A partir de aqui $t0 queda libre //
+			// lo usaremos para comprobar en los branch //
 
-		for (i = 0; i < 256; i += 2) {
+			xor($i, $i, $i); // i = 0
+			for_i:
+				ori($j, $i, $0); //j = i
+				xor($k, $k, $k); //k = 0;
 
-			// para obtener la dirección de los datos ha que "invertir" los bits de su dirección.
-			j = i; k = 0;
-			for (n = 0; n < 8; ++n) { k <<= 1;		k |= j & 1;		j >>= 1; }		dir1 = k << 1;	// dirección 1er dato (real)
-			// se respite para la segunda dirección
-			j = i + 1; k = 0;
-			for (n = 0; n < 8; ++n) { k <<= 1;		k |= j & 1;		j >>= 1; }		dir2 = k << 1;	// dirección 2do dato (real)
+				xor($n, $n, $n); //n = 0;
+				for_n_1:
+					sll($k, $k, 1); //k <<= 1
+					andi($t0, $j, 1);
+					or ($k, $k, $t0); // k |= j & 1;
+					srl($j, $j, 1); // j >>= 1;
 
-			// Leemos 2 parejas de datos (real e img) en 4 registros elegidos al azar
-			// el único motivo por el que se van a utilizar registros (Rt0, Rt1,...) es para poder utilizar las funciones LW y SW
-			// definidas en esta misma clase. De no ser por ello, se utilizarían variables normales
+					addi($n, $n, 1); // n++
+					addi($t0, $n, -8);
+					bne($t0, $0, for_n_1);
+				//for_n_1
 
-			LW($t1, Ra0 + (dir1 << 2));		// real
-			LW($t2, Ra0 + (dir1 << 2) + 4);	// img
-			LW($t3, Ra0 + (dir2 << 2));		// real
-			LW($t4, Ra0 + (dir2 << 2) + 4);	// img
+				sll($dir1, $k, 1);
+				addi($j, $i, 1);
+				xor ($k, $k, $k); //k = 0;
 
-			Rt5 = Rt1 + Rt3;
-			Rt6 = Rt1 - Rt3;
-			Rt7 = Rt2 + Rt4;
-			Rt8 = Rt2 - Rt4;
+				xor ($n, $n, $n); //n = 0;
+				for_n_2:
+					sll($k, $k, 1); //k <<= 1
+					andi($t0, $j, 1);
+					or ($k, $k, $t0); // k |= j & 1;
+					srl($j, $j, 1); // j >>= 1;
 
-			SW($t5, Ra1 + (i << 3));
-			SW($t7, Ra1 + (i << 3) + 4);		// img 
-			SW($t6, Ra1 + (i << 3) + 8);
-			SW($t8, Ra1 + (i << 3) + 12);		// img
-		}
+					addi($n, $n, 1); // n++
+					addi($t0, $n, -8);
+					bne($t0, $0, for_n_2);
+				//for_n_2
 
-		SW($t8, 0x3000 + 4);		// avisa al consumidor de que terminó
-		SW($t8, 0x3000 + 12);		// avisa al productor de que está listo
+				sll($dir2, $k, 1);
 
-		Ra0 ^= 0x800;				// truco para leer datos del otro bloque	( doble buffer o buffer ping-pong)
-		Ra1 ^= 0x800;				// truco para escribri resultados el otro bloque
-	}
+				// Desplazamos dos a la izq. dir1 y dir2 para su uso en las LW's
+				sll($dir1, $dir1, 2);
+				sll($dir2, $dir2, 2);
 
+				// Calculamos la suma de $a0 y $dir1 y la ponemos en $t0
+				add($t0, $a0, $dir1);
+				// Y ejecutamos los accesos   ==> Ra0 + (dir1 << 2) == $t0
+				LW($t1, Rt0 + 0);	// real
+				LW($t2, Rt0 + 4);	// img
+
+				// Hacemos lo mismo con $dir2 ==> Ra0 + (dir2 << 2) == $t0
+				add($t0, $a0, $dir2);
+				LW($t3, Rt0);		// real
+				LW($t4, Rt0 + 4);	// img
+
+				add($t5, $t1, $t3);
+				sub($t6, $t1, $t3);
+				add($t7, $t2, $t4);
+				sub($t8, $t2, $t4);
+
+				//Guardamos i<<3 en $t0
+				sll($t0, $i, 3);
+				//Y le sumamos Ra1   ==> Ra1 + (i << 3) == $t0
+				add($t0, $t0, $a1);
+
+				SW($t5, Rt0);
+				SW($t7, Rt0 + 4);	// img 
+				SW($t6, Rt0 + 8);
+				SW($t8, Rt0 + 12);	// img
+
+				addi($i, $i, 2); // i+=2
+				addi($t0, $i, -256);
+				bne($t0, $0, for_i);
+			//for_i
+
+			SW($t8, 0x3000 + 4);		// TODO CAMBIAR avisa al consumidor de que terminï¿½
+			SW($t8, 0x3000 + 12);		// TODO CAMBIAR avisa al productor de que estï¿½ listo		
+
+			ori($t0, $t0, 0x800);
+			xor ($a0, $a0, $t0);		// truco para leer datos del otro bloque	( doble buffer o buffer ping-pong)
+			xor ($a1, $a1, $t0);		// truco para escribri resultados el otro bloque
+		//esperaPosterior
+
+		beq($0, $0, while_true);
+	//while_true
 }
-
 
 void MIPScore::codigoL1inv() {
 
 	int i, j; 
 
-	// el único motivo por el que se van a utilizar registros (Rt0, Rt1,...) es para poder utilizar las funciones LW y SW
-	// definidas en esta misma clase. De no ser por ello, se utilizarían variables normales
+	// el ï¿½nico motivo por el que se van a utilizar registros (Rt0, Rt1,...) es para poder utilizar las funciones LW y SW
+	// definidas en esta misma clase. De no ser por ello, se utilizarï¿½an variables normales
 
 	Rt8 = 1;				// elijo un registro cualquiera para pasar un valor no nulo
-	SW($t8, 0x3000 + 12);	// avisa al procesador anterior de que está listo
+	SW($t8, 0x3000 + 12);	// avisa al procesador anterior de que estï¿½ listo
 
-	Ra0 = 0x1000; // dirección datos de entrada
-	Ra1 = 0x2000; // dirección resultados
+	Ra0 = 0x1000; // direcciï¿½n datos de entrada
+	Ra1 = 0x2000; // direcciï¿½n resultados
 
 	while (true) {
 
@@ -457,15 +505,13 @@ void MIPScore::codigoL1inv() {
 			}
 		}
 
-		SW($t8, 0x3000 + 4);		// avisa al consumidor de que terminó
-		SW($t8, 0x3000 + 12);		// avisa al productor de que está listo
+		SW($t8, 0x3000 + 4);		// avisa al consumidor de que terminï¿½
+		SW($t8, 0x3000 + 12);		// avisa al productor de que estï¿½ listo
 
 		Ra0 ^= 0x800;				// truco para leer datos del otro bloque	( doble buffer o buffer ping-pong)
 		Ra1 ^= 0x800;				// truco para escribri resultados el otro bloque
 	}
 }
-
-
 
 void MIPScore::procesar(){
 
@@ -502,13 +548,13 @@ void MIPScore::procesar(){
 			switch (functCode) {
 			case 0x20:	regs[reg3] = regs[reg1] + regs[reg2];				++cnt.add;	if(debug) printf("%s = %08x = %s + %s\n", RR[reg3], RV(reg3), RR[reg1], RR[reg2]);	break;	// sumar
 			case 0x22:	regs[reg3] = regs[reg1] - regs[reg2];				++cnt.sub;	if(debug) printf("%s = %08x = %s - %s\n", RR[reg3], RV(reg3), RR[reg1], RR[reg2]);	break;	// restar
-			case 0x00:	regs[reg3] = regs[reg2]	<< shamt;					++cnt.sll;	if(debug) printf("%s = %08x = %s sll %d\n", RR[reg3], RV(reg3), RR[reg2], shamt);		break;	// sll o también nop
+			case 0x00:	regs[reg3] = regs[reg2]	<< shamt;					++cnt.sll;	if(debug) printf("%s = %08x = %s sll %d\n", RR[reg3], RV(reg3), RR[reg2], shamt);		break;	// sll o tambiï¿½n nop
 			case 0x04:	regs[reg3] = regs[reg2]	<< regs[reg1];				++cnt.sllv;	if(debug) printf("%s = %08x = %s sllv %s\n", RR[reg3], RV(reg3), RR[reg2], RR[reg1]); break;	// sllv
 			case 0x02:	regs[reg3] = RVU(reg2)	>> shamt;					++cnt.srl;	if(debug) printf("%s = %08x = %s srl %d\n", RR[reg3], RV(reg3), RR[reg2], shamt);		break;	// srl
 			case 0x06:	regs[reg3] = RVU(reg2)	>> regs[reg1];				++cnt.srlv;	if(debug) printf("%s = %08x = %s srlv %s\n", RR[reg3], RV(reg3), RR[reg2], RR[reg1]); break;	// srlv
 			case 0x03:	regs[reg3] = regs[reg2]	>> shamt;					++cnt.sra;	if(debug) printf("%s = %08x = %s sra %d\n", RR[reg3], RV(reg3), RR[reg2], shamt);		break;	// sra
 			case 0x07:	regs[reg3] = regs[reg2]	>> regs[reg1];				++cnt.srav;	if(debug) printf("%s = %08x = %s srav %s\n", RR[reg3], RV(reg3), RR[reg2], RR[reg1]); break;	// srav
-			case 0x12:	regs[reg3] = LO;									++cnt.mflo;	if(debug) printf("%s = %08x = LO\n", RR[reg3], RV(reg3));								break;	// mflo		termina la multiplicación
+			case 0x12:	regs[reg3] = LO;									++cnt.mflo;	if(debug) printf("%s = %08x = LO\n", RR[reg3], RV(reg3));								break;	// mflo		termina la multiplicaciï¿½n
 			case 0x24:	regs[reg3] = regs[reg1] & regs[reg2];				++cnt.and;	if(debug) printf("%s = %08x = %s & %s\n", RR[reg3], RV(reg3), RR[reg1], RR[reg2]);	break;	// and
 			case 0x25:	regs[reg3] = regs[reg1] | regs[reg2];				++cnt.or;	if(debug) printf("%s = %08x = %s | %s\n", RR[reg3], RV(reg3), RR[reg1], RR[reg2]);	break;	// or
 			case 0x26:	regs[reg3] = regs[reg1] ^ regs[reg2];				++cnt.exor;	if(debug) printf("%s = %08x = %s ^ %s\n", RR[reg3], RV(reg3), RR[reg1], RR[reg2]);	break;	// exor
@@ -573,13 +619,11 @@ void MIPScore::procesar(){
 			sc_stop();
 		};
 
-		regs[0] = 0; // permito que se modifique, pero lo pongo a 0 después. Es más fácil que comprobar todas las escrituras
+		regs[0] = 0; // permito que se modifique, pero lo pongo a 0 despuï¿½s. Es mï¿½s fï¿½cil que comprobar todas las escrituras
 
 	}
 
 }
-
-
 
 void MIPScore::setDebug(bool onOff){
 	debug = onOff;

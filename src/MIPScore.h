@@ -3,7 +3,7 @@
 
 #include "systemc.h"
 #include "fifo.h"
-#include "instructions.h"
+//#include "instructions.h"
 #include "mmuMem.h"
 
 #define usarINT
@@ -54,7 +54,7 @@ public:
 		//SC_THREAD(codigoL0);
 		//SC_THREAD(codigoL1);
 		//SC_THREAD(codigoFiltrar);
-		//SC_THREAD(codigoL0inv);
+		SC_THREAD(codigoL0inv);
 		//SC_THREAD(codigoL1inv);
 		// esta versión sólo se utilizará cuando hayas terminado de generar el código: SC_THREAD(procesar);
 
@@ -200,10 +200,10 @@ private:
 #define mult r2, r3) LO=regs[r2]+regs[r3]
 #define mflo(r1) regs[r1]=LO
 #define sll(r1, r2, shamt) regs[r1]=regs[r2]<<shamt
-#define srl(r1, r2, shamt) regs[r1]=(regs[r2].to_uint())>>shamt
+#define srl(r1, r2, shamt) regs[r1]=((unsigned int)regs[r2])>>shamt // to_uint didn't work
 #define sra(r1, r2, shamt) regs[r1]=regs[r2]>>shamt
 #define sllv(r1, r2, r3) regs[r1]=regs[r2]<<regs[r3]
-#define srlv(r1, r2, r3) regs[r1]=(regs[r2].to_uint())>>regs[r3]
+#define srlv(r1, r2, r3) regs[r1]=((unsigned int)regs[r2])>>regs[r3]
 #define srav(r1, r2, r3) regs[r1]=regs[r2]>>regs[r3]
 
 #define addi(r1, r2, inm) regs[r1]=regs[r2]+((sc_int<16>)inm)

@@ -12,7 +12,7 @@ char* nombreIdx(char *cad, int idx){
 	return nombreYnumero;
 }
 
-SC_MODULE ( fingeEntradaExterna ) { // solo se utiliza con el módulo de filtrado, en las demás hay que ponerla igualmente
+SC_MODULE ( fingeEntradaExterna ) { // solo se utiliza con el mï¿½dulo de filtrado, en las demï¿½s hay que ponerla igualmente
 public:
 sc_port< write_if_T<sc_int<32>>> extInput;
 
@@ -48,7 +48,7 @@ class top : public sc_module
 	{
 		int i;
 		// ahora mismo estos nombres de archivo son superfluos
-		char *codigos = ""; // en blanco. Cambiar sólo para ejecutar código máquina
+		char *codigos = ""; // en blanco. Cambiar sï¿½lo para ejecutar cï¿½digo mï¿½quina
 		char *datos = "";
 
 		instFingeEntradaExterna = new fingeEntradaExterna("dummy");
@@ -57,7 +57,7 @@ class top : public sc_module
 		QextInput = new fifo_T<sc_int<32>>("QextInput", 1);
 		
 
-		for(i=0; i<2; ++i){	// una iteración más que el número de procesadores
+		for(i=0; i<2; ++i){	// una iteraciï¿½n mï¿½s que el nï¿½mero de procesadores
 			QextData[i] = new fifo_T<sc_int<32>>(nombreIdx("QextData", i), 1);
 			QextAddr[i] = new fifo_T<sc_uint<32>>(nombreIdx("QextAddr", i), 1);
 			QioLR[i] = new fifo_T<sc_int<32>>(nombreIdx("QioLR", i), 1);
@@ -76,13 +76,13 @@ class top : public sc_module
 
 		instFingeEntradaExterna->extInput( *QextInput );
 
-		instProductor = new productor("instProductor", "  PONER AQUI EL FICHERO DE DATOS  ");
+		instProductor = new productor("instProductor", "doc/inputL0inv.txt");
 		instProductor->	addrOut	( *QextAddr[0] );
 		instProductor->	dataOut	( *QextData[0] );
 		instProductor->	output	( *QioLR[0] );
 		instProductor->	input	( *QioRL[0]  ); 
 		
-		instConsumidor = new consumidor("instConsumidor", "	PONER AQUI EL FICHERO DE RESULTADOS ");	
+		instConsumidor = new consumidor("instConsumidor", "doc/outputL0inv.txt");	
 		instConsumidor->addrIn	( *QextAddr[1] );
 		instConsumidor->dataIn	( *QextData[1] );
 		instConsumidor->input	( *QioLR[1] );

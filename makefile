@@ -5,7 +5,7 @@ TARGET = mainMIPS-DF
 DEBUG=-Wall -O0 -g
 RELEASE=-Wall -O3
 
-CFLAGS=$(DEBUG)
+CFLAGS=$(DEBUG) -fno-operator-names
 DFLAGS=
 LDFLAGS=-lsystemc
 
