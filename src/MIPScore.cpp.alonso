@@ -343,18 +343,20 @@ void MIPScore::codigoL1() {
 
 void MIPScore::codigoL0inv() {
 	
-	#define la(r1, inm)  lui(r1, inm); ori(r1, 0, inm)
+	#define la(r1, inm) lui(r1, inm); ori(r1, 0, inm)
 	
 	#define $i $s0
 	#define $j $s1
 	#define $k $s2
-	#define $n $s4
+	#define $n $s3
 
-	#define $dir1 $s5
-	#define $dir2 $s6
+	#define $dir1 $s4
+	#define $dir2 $s5
+	
+	ori($s6, $0, 0x3000); // Guardamos en $s6 el valor 0x3000, que usamos a menudo
 
 	ori($t8, $0, 1);
-	SW($t8, 0x3000 + 12);  // TODO sumar
+	SW($t8, Rs6 + 12);  // TODO sumar
 
 	// Establecemos direcciones de entrada y salida
 	ori($a0, $0, 0x1000);
@@ -362,12 +364,12 @@ void MIPScore::codigoL0inv() {
 
 	while_true:
 		inicioEspera:
-			LW($t0, 0x3000);		// espera al procesador anterior
+			LW($t0, Rs6);		// espera al procesador anterior
 			beq($t0, $0, inicioEspera);
 		//inicioEspera
 
 		esperaPosterior:
-			LW($t0, 0x3000 + 8);	// espera al procesador posterior
+			LW($t0, Rs6 + 8);	// espera al procesador posterior
 			beq($t0, $0, esperaPosterior);
 
 			// A partir de aqui $t0 queda libre //
@@ -443,8 +445,8 @@ void MIPScore::codigoL0inv() {
 				bne($t0, $0, for_i);
 			//for_i
 
-			SW($t8, 0x3000 + 4);		// TODO CAMBIAR avisa al consumidor de que termin�
-			SW($t8, 0x3000 + 12);		// TODO CAMBIAR avisa al productor de que est� listo		
+			SW($t8, Rs6 + 4);		// TODO CAMBIAR avisa al consumidor de que termin�
+			SW($t8, Rs6 + 12);		// TODO CAMBIAR avisa al productor de que est� listo		
 
 			ori($t0, $t0, 0x800);
 			xor ($a0, $a0, $t0);		// truco para leer datos del otro bloque	( doble buffer o buffer ping-pong)
@@ -628,4 +630,3 @@ void MIPScore::procesar(){
 void MIPScore::setDebug(bool onOff){
 	debug = onOff;
 }
-
