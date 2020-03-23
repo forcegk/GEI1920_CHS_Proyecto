@@ -47,9 +47,15 @@ class top : public sc_module
 	SC_CTOR(top) // constructor
 	{
 		int i;
+
 		// ahora mismo estos nombres de archivo son superfluos
-		char *codigos = ""; // en blanco. Cambiar s�lo para ejecutar c�digo m�quina
-		char *datos = "";
+		#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+			char *codigos = = "asm\\L0inv.mips";
+			char *datos = "";
+		#else
+			char *codigos = "asm/L0inv.mips";
+			char *datos = "";
+		#endif
 
 		instFingeEntradaExterna = new fingeEntradaExterna("dummy");
 

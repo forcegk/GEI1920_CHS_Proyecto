@@ -48,15 +48,22 @@ public:
 		debug = false;
 
 		//=============================================
-		// elige tu código y conviértelo a ensamblador
+		// elige tu cï¿½digo y conviï¿½rtelo a ensamblador
 		//=============================================
 
 		//SC_THREAD(codigoL0);
 		//SC_THREAD(codigoL1);
 		//SC_THREAD(codigoFiltrar);
-		SC_THREAD(codigoL0inv);
 		//SC_THREAD(codigoL1inv);
-		// esta versión sólo se utilizará cuando hayas terminado de generar el código: SC_THREAD(procesar);
+		
+		// esta versiï¿½n sï¿½lo se utilizarï¿½ cuando hayas terminado de generar el cï¿½digo:
+		#define PROCESS_MACHINE_CODE
+
+		#ifdef PROCESS_MACHINE_CODE
+			SC_THREAD(procesar);
+		#else
+			SC_THREAD(codigoL0inv);
+		#endif
 
 	};
 
