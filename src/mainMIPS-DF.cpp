@@ -50,7 +50,7 @@ class top : public sc_module
 
 		// ahora mismo estos nombres de archivo son superfluos
 		#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-			char *codigos = = "asm\\L0inv.mips";
+			char *codigos = "asm\\L0inv.mips";
 			char *datos = "";
 		#else
 			char *codigos = "asm/L0inv.mips";
