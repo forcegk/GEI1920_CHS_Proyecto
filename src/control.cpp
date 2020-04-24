@@ -9,7 +9,7 @@ void control::registros() {
 		selDatoReg_o.write(0);
 	}
 	else {
-		if(estado.read()== inicial) IR = instruction.read().to_uint(); // Sí, IR se carga así
+		if(estado.read()== inicial) IR = instruction.read().to_uint(); // Sï¿½, IR se carga asï¿½
 		estado.write(state);
 		selDatoReg_o.write(selDatoReg);
 	}
@@ -54,7 +54,7 @@ void control::controlProc(){
 		EscrPC.write(1);
 		SelALUB.write(1);
 		state = segundo;	break;
-	case segundo:					// puede ser necesario añadir código para implementar nuevas instrucciones
+	case segundo:					// puede ser necesario aï¿½adir cï¿½digo para implementar nuevas instrucciones
 		SelALUB.write(3);
 		state = segundo;
 		if (opCode == 0x23)
@@ -69,7 +69,9 @@ void control::controlProc(){
 			state = branch;
 		else if (opCode == 0x02)
 			state = jump;
-		else if (opCode == 0x3f) {	// apagar Esta instrucción ficticia hace que se pueda terminar la simulación desde ensamblador
+		else if (opCode == 0x03)
+			state = jal;
+		else if (opCode == 0x3f) {	// apagar Esta instrucciï¿½n ficticia hace que se pueda terminar la simulaciï¿½n desde ensamblador
 			sc_stop();
 		}
 		else {
@@ -107,15 +109,15 @@ void control::controlProc(){
 		case 0x25: 	 ALUop.write(0x0e);					break;	// or
 		case 0x26: 	 ALUop.write(0x02);					break; // xor
 		case 0x2A: 	 ALUop.write(0x01);	selDatoReg = 4;	break;	//slt
-		case 0x18: 	 /* MULT NO ESTÁ IMPLEMENTADA */	break;	// mult
+		case 0x18: 	 /* MULT NO ESTï¿½ IMPLEMENTADA */	break;	// mult
 		case 0x00:		break;	//sll
 		case 0x04: 		break;	//sllv
 		case 0x02: 		break;	//srl
-		case 0x06: 		break;	//srlv			¿CUANTO VALES selDatoReg PARA UNA INSTRUCCIÓN DE DESPLAZAMIENTO 
+		case 0x06: 		break;	//srlv			ï¿½CUANTO VALES selDatoReg PARA UNA INSTRUCCIï¿½N DE DESPLAZAMIENTO 
 		case 0x03: 		break;	//sra
 		case 0x07: 		break;	//srav
-		case 0x12: 	 /*  LO NO ESTÁ IMPLEMENTADA */		break;	// LO	
-		default:	 state = buff;			// nunca se debería llegar aquí
+		case 0x12: 	 /*  LO NO ESTï¿½ IMPLEMENTADA */		break;	// LO	
+		default:	 state = buff;			// nunca se deberï¿½a llegar aquï¿½
 		};
 		break;
 	case arith2:
@@ -139,7 +141,7 @@ void control::controlProc(){
 		case 4: ALUop.write(0x06);   SelALUB.write(4);	break;	//andi
 		case 5: ALUop.write(0x0e);   SelALUB.write(4);	break;	//ori
 		case 7: ALUop.write(0x0e);   selDatoReg = 5;	break;	//lui
-		default: ALUop.write(0x0e);  state = buff;		//no debería suceder nunca
+		default: ALUop.write(0x0e);  state = buff;		//no deberï¿½a suceder nunca
 		};
 		break;
 	case inme2:
@@ -154,7 +156,27 @@ void control::controlProc(){
 	case jump:
 		//??????
 		state = inicial;	break;
-	default: // una copia de buff. Nunca se debería llegar aquí
+
+	case jal:
+		// Xabi y Alonso
+		SelALUA.write(0b0);
+		SelALUB.write(0b01);
+		FuentePC.write(0b10);
+		EscrPC_Cond.write(true);
+
+		state = jal2; break;
+	
+	case jal2:
+		// Xabi y Alonso
+		EscrPC_Cond.write(false);
+
+		selDatoReg = 1; // salidaALU
+		EscrReg.write(true);
+		rd.write((unsigned int) 31);
+
+		state = inicial; break;
+
+	default: // una copia de buff. Nunca se deberï¿½a llegar aquï¿½
 		LeerMem.write(1);
 		SelALUB.write(1);
 		state = inicial;

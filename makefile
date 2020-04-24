@@ -1,5 +1,5 @@
 #########################
-TARGET = mainMIPS-DF
+TARGET = Main_methods
 #########################
 
 DEBUG=-Wall -O0 -g

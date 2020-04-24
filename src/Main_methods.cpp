@@ -52,11 +52,11 @@ sc_signal<bool>			valido, listo;
 		int i;
 
 
-		instMIPS = new mipsCA("instMIPS", "NOMBRE DEL PROGRAMA.txt", "NOMBRE DEL ARCHIVO DE DATOS.txt");
+		instMIPS = new mipsCA("instMIPS", "doc/programaJAL.txt", "doc/datos.txt");
 		instDummy = new dummy("instDummy");
 
 
-		// EL RESTL YA ESTÁ BIEN CONECTADO
+		// EL RESTL YA ESTï¿½ BIEN CONECTADO
 
 		instMIPS->extDataIn(extDataIn);
 		instMIPS->extAddrIn(extAddrIn);
