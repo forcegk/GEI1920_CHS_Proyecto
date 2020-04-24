@@ -38,7 +38,7 @@ void mmuMem::direcciones() {
 
 }
 
-void mmuMem::lectura() {		// es básicamente un MUX
+void mmuMem::lectura() {		// es bï¿½sicamente un MUX
 
 	switch (regModulo.read()) {	
 	case 0: dataOut.write(goodDataOut[0].read()); break;
@@ -56,7 +56,7 @@ void mmuMem::lectura() {		// es básicamente un MUX
 	};
 }
 
-void mmuMem::registrar() {	// sensible sólo al reloj (no hay reset)
+void mmuMem::registrar() {	// sensible sï¿½lo al reloj (no hay reset)
 
 	if (rst.read()) {
 		regIO0.write(0);		regIO2.write(0);
@@ -64,7 +64,7 @@ void mmuMem::registrar() {	// sensible sólo al reloj (no hay reset)
 	}
 	else {
 
-		if (regLectura.read() && (regModulo.read() == 6)) { // resetea el registro IO después de ser leído
+		if (regLectura.read() && (regModulo.read() == 6)) { // resetea el registro IO despuï¿½s de ser leï¿½do
 			if (flagWhichIO.read() == 0)
 				regIO0.write(0);
 			else
@@ -115,7 +115,7 @@ int  mmuMem::leeLinea(char* cad, FILE* pt) {
 		if ((pasa == 1) && (c >= ' '))
 			cad[i++] = c;
 		else {
-			if (c > ' ') {	// caracter válido
+			if (c > ' ') {	// caracter vï¿½lido
 				pasa = 1;
 				cad[i++] = c;
 			}
@@ -144,11 +144,11 @@ char* mmuMem::parse(char* palabra, char* cadena) {
 }
 
 int  mmuMem::buscaOP(char* inst) {
-	//                  0       1      2       3     4      5      6      7       8       9       10      11      12     13      14     15     16     17     18     19    20    21     22      23     24    25     26,        27
-	char* nombres[28] = { "add", "sub", "mult", "and", "or", "xor", "slt", "sllv", "srlv", "srav", "addi", "andi", "ori", "slti", "sll", "srl", "sra", "beq", "bne", "lui", "lw", "sw", "blez", "bgtz", "j", "mflo", "apagar", "nop" };
+	//                  0       1      2       3     4      5      6      7       8       9       10      11      12     13      14     15     16     17     18     19    20    21     22      23     24    25     26,        27	   28
+	char* nombres[] = { "add", "sub", "mult", "and", "or", "xor", "slt", "sllv", "srlv", "srav", "addi", "andi", "ori", "slti", "sll", "srl", "sra", "beq", "bne", "lui", "lw", "sw", "blez", "bgtz", "j", "mflo", "apagar", "nop", "jal" };
 	int i;
 
-	for (i = 0; i < 28; ++i) {
+	for (i = 0; i < sizeof(nombres)/sizeof(char*); ++i) {
 		if (!strcmp(nombres[i], inst))
 			return i;
 	}
@@ -159,7 +159,7 @@ int  mmuMem::registro(char* cad) {
 	char* nombres[32] = { "zero", "at", "v0", "v1", "a0", "a1", "a2", "a3", "t0", "t1", "t2", "t3", "t4", "t5", "t6", "t7", "s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7", "t8", "t9", "k0", "k1", "gp", "sp", "fp", "ra" };
 	int i;
 	if (cad[0] = !'$') {
-		fprintf(stderr, "registro inválido %s\n", cad);
+		fprintf(stderr, "registro invï¿½lido %s\n", cad);
 		exit(-1);
 	}
 	cad++;
@@ -171,7 +171,7 @@ int  mmuMem::registro(char* cad) {
 	if ((i >= 0) && (i <= 31))
 		return i;
 
-	fprintf(stderr, "registro inválido %s\n", cad - 1);
+	fprintf(stderr, "registro invï¿½lido %s\n", cad - 1);
 	exit(-1);
 }
 
@@ -201,7 +201,7 @@ void mmuMem::parseProgram() {
 
 	code = leeLinea(programa[NL], contenido);
 	
-	if ((programa[NL][0] >= '0') && (programa[NL][0] <= '9')) { // suponemos que le programa ya está ensamblado, lo leemos en memoria y nos vamos
+	if ((programa[NL][0] >= '0') && (programa[NL][0] <= '9')) { // suponemos que le programa ya estï¿½ ensamblado, lo leemos en memoria y nos vamos
 		i = 0;
 		cad = programa[NL];
 		if ((cad[0] == '0') && ((cad[1] == 'x') || (cad[1] == 'X')))
@@ -266,16 +266,16 @@ void mmuMem::parseProgram() {
 			pt = parse(buffer, pt);
 			reg2 = registro(buffer);
 		}
-		if (((inst >= 10) && (inst <= 16)) || (inst == 19)) {	// inm de instrucciones aritmético lógica incluidos desplazamientos y lui
+		if (((inst >= 10) && (inst <= 16)) || (inst == 19)) {	// inm de instrucciones aritmï¿½tico lï¿½gica incluidos desplazamientos y lui
 			pt = parse(buffer, pt);
 			inm = parseInm(buffer);
 		}
 
-		if ((inst == 17) || (inst == 18) || (inst == 22) || (inst == 23) || (inst == 24)) {		// etiqueta en las instrucciones de salto
+		if ((inst == 17) || (inst == 18) || (inst == 22) || (inst == 23) || (inst == 24) || (inst == 28)) {		// etiqueta en las instrucciones de salto
 			pt = parse(buffer, pt);
 			for (j = 0; j < NETQ; ++j) {
 				if (!strcmp(etiquetas[j], buffer)) {
-					if (inst == 24) // j
+					if (inst == 24 || inst == 28) // j
 						inm = target[j];
 					else
 						inm = target[j] - (i + 1);
@@ -288,7 +288,7 @@ void mmuMem::parseProgram() {
 			}
 		}
 
-		if (inst == 25) {	// mflo en el último momento
+		if (inst == 25) {	// mflo en el ï¿½ltimo momento
 			pt = parse(buffer, pt);
 			reg1 = registro(buffer);
 		}
@@ -322,6 +322,8 @@ void mmuMem::parseProgram() {
 		case 25: maq = maq = 0x00000000 | (reg1 << 11) | 0x12;	break; //mflo
 		case 26: maq = 0xffffffff;															break; //apagar
 		case 27: maq = 0x00000000;															break; //nop
+		case 28: maq = (0x03 << 26) | (inm & 0x3ffffff); //cout << "opcode: " << inst << endl;
+				 break; //jal
 		default:
 			fprintf(stderr, "instrucion desconocida con opCode %d\n", inst);		// MEJORAR LOS MENSAJES DE ERROR
 			exit(-1);

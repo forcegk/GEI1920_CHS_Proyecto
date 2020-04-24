@@ -57,6 +57,7 @@ void control::controlProc(){
 	case segundo:					// puede ser necesario a�adir c�digo para implementar nuevas instrucciones
 		SelALUB.write(3);
 		state = segundo;
+
 		if (opCode == 0x23)
 			state = lw1;
 		else if (opCode == 0x2b)
@@ -159,20 +160,30 @@ void control::controlProc(){
 
 	case jal:
 		// Xabi y Alonso
-		SelALUA.write(0b0);
-		SelALUB.write(0b01);
-		FuentePC.write(0b10);
-		EscrPC_Cond.write(true);
+		FuentePC.write(2);
+		EscrPC.write(1);
+
+		SelALUA.write(0);
+		SelALUB.write(1);
+		
+
+		cout << "inmJ:" << inmJ << endl << "IR " << IR << endl;
+
+		//LeerMem.write(1);
 
 		state = jal2; break;
 	
 	case jal2:
 		// Xabi y Alonso
-		EscrPC_Cond.write(false);
+		FuentePC.write(0);
+		rd.write((unsigned int) 31);
+
+		EscrPC.write(0);
+		
+		//FuentePC.write(0);
 
 		selDatoReg = 1; // salidaALU
-		EscrReg.write(true);
-		rd.write((unsigned int) 31);
+		EscrReg.write(1);
 
 		state = inicial; break;
 
