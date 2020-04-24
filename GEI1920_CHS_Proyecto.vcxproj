@@ -11,17 +11,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\consumidor.h" />
-    <ClInclude Include="src\fifo.h" />
-    <ClInclude Include="src\MIPScore.h" />
-    <ClInclude Include="src\MIPSdf.h" />
-    <ClInclude Include="src\mmuMem.h" />
-    <ClInclude Include="src\productor.h" />
+    <ClCompile Include="src\alu.cpp" />
+    <ClCompile Include="src\BRAM.cpp" />
+    <ClCompile Include="src\control.cpp" />
+    <ClCompile Include="src\DSP48E1.cpp" />
+    <ClCompile Include="src\gestionPC.cpp" />
+    <ClCompile Include="src\Main_methods.cpp" />
+    <ClCompile Include="src\mmuMem.cpp" />
+    <ClCompile Include="src\muxes.cpp" />
+    <ClCompile Include="src\registersBank.cpp" />
+    <ClCompile Include="src\shifter.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\mainMIPS-DF.cpp" />
-    <ClCompile Include="src\MIPScore.cpp" />
-    <ClCompile Include="src\mmuMem.cpp" />
+    <ClInclude Include="src\alu.h" />
+    <ClInclude Include="src\BRAM.h" />
+    <ClInclude Include="src\control.h" />
+    <ClInclude Include="src\DSP48E1.h" />
+    <ClInclude Include="src\gestionPC.h" />
+    <ClInclude Include="src\mipsCA.h" />
+    <ClInclude Include="src\mmuMem.h" />
+    <ClInclude Include="src\muxes.h" />
+    <ClInclude Include="src\productorConsumidor.h" />
+    <ClInclude Include="src\registersBank.h" />
+    <ClInclude Include="src\shifter.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BDD94423-9FC1-4389-885E-157B29343A9B}</ProjectGuid>
