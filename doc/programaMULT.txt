@@ -1,0 +1,18 @@
+mult $s0, $s1
+mflo $t0
+mult $s2, $s3
+mflo $t1
+mult $t0, $t1
+mflo $t2
+mult $s4, $s5
+mflo $t3
+mult $s6, $s7
+mflo $t4
+mult $t3, $t4
+mflo $t5
+mult $t2, $t5
+mflo $t6
+mult $t6, $t6
+mflo $t7
+
+apagar
