@@ -26,12 +26,6 @@ sc_in< sc_uint<3> >  	selDatoReg;
 sc_in< sc_int<32> >   	salidaMem, salidaALU, LOreg, shifted;
 sc_out< sc_int<32> >	rdValue;
 
-/*
-sc_in <sc_uint<2>>		RegDest;
-sc_in <sc_uint<32>>		rdValueFromMem;
-sc_in <sc_uint<32>>		rdValueFromALUOut;
-sc_out<sc_uint<32>>		rdValueMux;
-*/
 
     void muxA();
     void muxB();

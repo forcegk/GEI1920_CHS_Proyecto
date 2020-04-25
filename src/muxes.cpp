@@ -43,6 +43,7 @@ void muxes::muxDato() {
 	case 3:		rdValue.write(shifted.read());				break;
 	case 4:		slt.bit(0) = salidaALU.read().bit(31);
 				rdValue.write(slt);							break;
+	case 5:		rdValue.write(PC.read().to_int());			break;
 	default:	rdValue.write(inm.read() << 16);			// lui
 	};
 }

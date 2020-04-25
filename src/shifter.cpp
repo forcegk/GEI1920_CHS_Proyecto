@@ -2,10 +2,6 @@
 
 void shifter::shift(){
 	
-	// osorio: "igual teneis que cambiar algún mux..."
-	// also osorio:
-	// sh16 = 0xdeaddead;
-
 	sh16 = 0xdeaddead;
 
 }

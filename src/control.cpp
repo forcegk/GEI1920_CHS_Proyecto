@@ -57,7 +57,7 @@ void control::controlProc(){
 	case segundo:					// puede ser necesario a�adir c�digo para implementar nuevas instrucciones
 		SelALUB.write(3);
 		state = segundo;
-
+		cerr << "Opcode: " << hex << opCode << endl;
 		if (opCode == 0x23)
 			state = lw1;
 		else if (opCode == 0x2b)
@@ -159,34 +159,27 @@ void control::controlProc(){
 		state = inicial;	break;
 
 	case jal:
-		// Xabi y Alonso
+		// Seleccionamos la salida del mux con una señal de control registrada
+		selDatoReg = 5;
+
+		state = jal2;
+		break;
+	case jal2:
+		// Escribe el valor de selDatoReg (ciclo anterior): $ra = PC
+		EscrReg.write(1);
+		rd.write((unsigned int) 31);
+
+		// Realizamos el salto
 		FuentePC.write(2);
 		EscrPC.write(1);
 
-		SelALUA.write(0);
-		SelALUB.write(1);
-		
+		// Necesitamos un estado más para que se haga efectivo el cambio de PC
+		state = jal3;
+		break;
 
-		cout << "inmJ:" << inmJ << endl << "IR " << IR << endl;
-
-		//LeerMem.write(1);
-
-		state = jal2; break;
-	
-	case jal2:
-		// Xabi y Alonso
-		FuentePC.write(0);
-		rd.write((unsigned int) 31);
-
-		EscrPC.write(0);
-		
-		//FuentePC.write(0);
-
-		selDatoReg = 1; // salidaALU
-		EscrReg.write(1);
-
-		state = inicial; break;
-
+	case jal3: 
+		state = inicial;
+		break;
 	default: // una copia de buff. Nunca se deber�a llegar aqu�
 		LeerMem.write(1);
 		SelALUB.write(1);

@@ -50,11 +50,14 @@ sc_signal<bool>			valido, listo;
 	SC_CTOR(top){
 	
 		int i;
+		
+		#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+			instMIPS = new mipsCA("instMIPS", "doc\\programaJAL.txt", "doc\\datos.txt");
+		#else
+			instMIPS = new mipsCA("instMIPS", "doc/programaJAL.txt", "doc/datos.txt");
+		#endif
 
-
-		instMIPS = new mipsCA("instMIPS", "doc/programaJAL.txt", "doc/datos.txt");
 		instDummy = new dummy("instDummy");
-
 
 		// EL RESTL YA EST� BIEN CONECTADO
 
