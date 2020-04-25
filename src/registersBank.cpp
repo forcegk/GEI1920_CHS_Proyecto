@@ -28,7 +28,7 @@ void registersBank::writeProc(){
 			if (r) {
 				regs[r] = rdValue.read();	// no se puede cambiar $0
 				cambio.write(!cambio.read());
-				cout << "Escr. @ " << hex << r << " = " << regs[r] << endl; // para depurar, si se desea
+				// cout << "Escr. @ " << hex << r << " = " << regs[r] << endl; // para depurar, si se desea
 			}
 		}
 	}

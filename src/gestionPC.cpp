@@ -8,7 +8,6 @@ void gestionPC::mux(){
 	case 2:
 		tmpPC = (jumpDir.read() << 2); // sobreescribimos tmpPC al completo
 		tmpPC(31,28) = PC.read()(31,28); // y ponemos bien los cuatro primeros
-		cout << "tmpPC: " << hex << tmpPC << endl;
 		break;
 	default:
 		tmpPC = 0xdeaddead;

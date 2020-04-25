@@ -57,7 +57,7 @@ void control::controlProc(){
 	case segundo:					// puede ser necesario a�adir c�digo para implementar nuevas instrucciones
 		SelALUB.write(3);
 		state = segundo;
-		cerr << "Opcode: " << hex << opCode << endl;
+		//cerr << "Opcode: " << hex << opCode << endl;
 		if (opCode == 0x23)
 			state = lw1;
 		else if (opCode == 0x2b)
@@ -173,13 +173,13 @@ void control::controlProc(){
 		FuentePC.write(2);
 		EscrPC.write(1);
 
-		// Necesitamos un estado más para que se haga efectivo el cambio de PC
-		state = jal3;
-		break;
+		// Cargamos la siguiente instrucción
+		LeerMem.write(1);
+		IoD.write(3);
 
-	case jal3: 
 		state = inicial;
 		break;
+
 	default: // una copia de buff. Nunca se deber�a llegar aqu�
 		LeerMem.write(1);
 		SelALUB.write(1);

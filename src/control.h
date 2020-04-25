@@ -38,7 +38,7 @@ sc_uint<32> IR;
 sc_signal<sc_uint<4> > estado; 
 sc_uint<4> state;
 sc_uint<3> selDatoReg;
-enum st { inicial, segundo, buff, lw1, lw2, sw, arith1, arith2, inme1, inme2, mult2, branch, jump, jal, jal2, jal3}; // se pueden a�adir estados si se necesitan
+enum st { inicial, segundo, buff, lw1, lw2, sw, arith1, arith2, inme1, inme2, mult2, branch, jump, jal, jal2}; // se pueden a�adir estados si se necesitan
 
 }; 
 
