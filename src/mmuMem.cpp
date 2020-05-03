@@ -322,8 +322,7 @@ void mmuMem::parseProgram() {
 		case 25: maq = maq = 0x00000000 | (reg1 << 11) | 0x12;	break; //mflo
 		case 26: maq = 0xffffffff;															break; //apagar
 		case 27: maq = 0x00000000;															break; //nop
-		case 28: maq = (0x03 << 26) | (inm & 0x3ffffff); //cout << "opcode: " << inst << endl;
-				 break; //jal
+		case 28: maq = (0x03 << 26) | (inm & 0x3ffffff); break; //jal
 		default:
 			fprintf(stderr, "instrucion desconocida con opCode %d\n", inst);		// MEJORAR LOS MENSAJES DE ERROR
 			exit(-1);
