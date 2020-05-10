@@ -3,12 +3,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 USE ieee.numeric_std.ALL;
 
 
-entity filtro is
+entity registersBank is
 	Port (
-		clk, reset : in std_logic;
-		intro : in signed(7 downto 0);
-		outro : out signed(7 downto 0);
-		res : out signed(15 downto 0)
+		clk, reset : in  std_logic;
+		rs, rt, rd : in  std_logic_vector(4 downto 0);
+		rdValue    : in  std_logic_vector(31 downto 0);
+		EscrReg    : in  std_logic;
+		regA, regB : out std_logic_vector(31 downto 0);
 	);
 end entity filtro;
 
