@@ -2,3 +2,11 @@ obj/
 target/
 Debug/
 .vs/
+
+# Xabi containing zone
+*.o
+*.cf
+
+registersbank
+tb_registersbank
+tb_registersBank_wave.vcd
