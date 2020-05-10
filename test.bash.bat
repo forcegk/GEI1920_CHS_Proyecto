@@ -82,9 +82,11 @@ exit # Exis script on *NIX
 : # WINDOWS CMD SCRIPT # :
 
 :WINDOWS
-if [%2]==[] (
-  SETLOCAL enabledelayedexpansion
-  set usage="usage: %0 <firstArg> <secondArg>"
-  @echo !usage:"=!
-  exit /b 1
-)
+ghdl -a --ieee=synopsys src\registersBank.vhd
+ghdl -a --ieee=synopsys src\TB_registersBank.vhd
+
+ghdl -e --ieee=synopsys registersBank
+ghdl -e --ieee=synopsys tb_registersBank
+
+ghdl -r --ieee=synopsys tb_registersBank --vcd=tb_registersBank_wave.vcd
+..\..\gtkwave\bin\gtkwave tb_registersBank_wave.vcd

@@ -1,0 +1,7 @@
+v 3
+file . "src\TB_registersBank.vhd" "20200510173332.000" "20200510194435.260":
+  entity tb_registersbank at 1( 0) + 0 on 17;
+  architecture test of tb_registersbank at 9( 148) + 0 on 18;
+file . "src\registersBank.vhd" "20200510173332.000" "20200510194435.218":
+  entity registersbank at 1( 0) + 0 on 15;
+  architecture rtl of registersbank at 16( 357) + 0 on 16;
