@@ -86,9 +86,9 @@ begin
 			rs <= std_logic_vector(to_unsigned(v_data_read(1),rs'length));
 			rt <= std_logic_vector(to_unsigned(v_data_read(2),rt'length));
 			rd <= std_logic_vector(to_unsigned(v_data_read(3),rd'length));
-			rdValue <= std_logic_vector(to_unsigned(v_data_read(5), rdValue'length));
+			rdValue <= std_logic_vector(to_unsigned(v_data_read(4), rdValue'length));
 			
-			EscrReg <= to_unsigned(v_data_read(4), 1)(0);
+			EscrReg <= to_unsigned(v_data_read(5), 1)(0);
 			
 		end loop;
 		wait for 3 ns;
