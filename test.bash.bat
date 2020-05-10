@@ -84,11 +84,13 @@ exit # Exis script on *NIX
 : # WINDOWS CMD SCRIPT # : [cosas de xabi]
 
 :WINDOWS
-ghdl -a --ieee=synopsys src\registersBank.vhd
-ghdl -a --ieee=synopsys src\TB_registersBank.vhd
+pushd src
+ghdl -a --ieee=synopsys registersBank.vhd
+ghdl -a --ieee=synopsys TB_registersBank.vhd
 
 ghdl -e --ieee=synopsys registersBank
 ghdl -e --ieee=synopsys tb_registersBank
 
 ghdl -r --ieee=synopsys tb_registersBank --vcd=tb_registersBank_wave.vcd
-..\..\gtkwave\bin\gtkwave tb_registersBank_wave.vcd
+popd
+..\..\gtkwave\bin\gtkwave src\tb_registersBank_wave.vcd
