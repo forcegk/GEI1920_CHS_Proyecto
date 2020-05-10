@@ -8,7 +8,7 @@ end tb_registersBank;
 
 architecture test of tb_registersBank is
 	
-	component bank port (
+	component registersBank port (
 		clk, reset : in  std_logic;
 		rs, rt, rd : in  std_logic_vector(4 downto 0);
 		rdValue    : in  std_logic_vector(31 downto 0);
@@ -28,7 +28,7 @@ file file_handler : text open read_mode is "tb.dat";
 
 begin
 	
-	dut: bank port map(
+	dut: registersBank port map(
 		clk => clk,
 		reset => rst,
 		EscrReg => EscrReg,
@@ -61,8 +61,8 @@ begin
 	
 
 	simulacion: process	
-	variable row : line;
-	variable v_data_read : t_integer_array(1 to NUM_COL);
+		variable row : line;
+		variable v_data_read : t_integer_array(1 to NUM_COL);
 	begin
 	
 		wait until rst'event and rst = '0';
@@ -91,7 +91,8 @@ begin
 			EscrReg <= to_unsigned(v_data_read(4), 1)(0);
 			
 		end loop;
-		assert false report "se ha terminado";
+		wait for 3 ns;
+		assert false report "se ha terminado" severity failure;
 		wait;
 	
 	end process;

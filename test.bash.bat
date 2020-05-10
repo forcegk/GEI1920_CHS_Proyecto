@@ -46,7 +46,9 @@ ghdl -a $IEEE_FLAGS TB_registersBank.vhd
 ghdl -e $IEEE_FLAGS registersBank
 ghdl -e $IEEE_FLAGS tb_registersBank
 
+set +e
 ghdl -r $IEEE_FLAGS tb_registersBank --vcd=tb_registersBank_wave.vcd
+set -e
 
 
 gtkwave tb_registersBank_wave.vcd 2> /dev/null # & \
@@ -79,7 +81,7 @@ exit # Exis script on *NIX
 
 
 
-: # WINDOWS CMD SCRIPT # :
+: # WINDOWS CMD SCRIPT # : [cosas de xabi]
 
 :WINDOWS
 ghdl -a --ieee=synopsys src\registersBank.vhd
