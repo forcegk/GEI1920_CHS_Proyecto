@@ -65,8 +65,8 @@ pushd "$SRCPATH" > /dev/null
 rm ./*.o
 rm ./*.cf
 
-rm ./registersBank
-rm ./tb_registersBank
+rm ./registersbank
+rm ./tb_registersbank
 rm ./tb_registersBank_wave.vcd
 
 popd > /dev/null
