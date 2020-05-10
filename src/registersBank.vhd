@@ -9,40 +9,35 @@ entity registersBank is
 		rs, rt, rd : in  std_logic_vector(4 downto 0);
 		rdValue    : in  std_logic_vector(31 downto 0);
 		EscrReg    : in  std_logic;
-		regA, regB : out std_logic_vector(31 downto 0);
+		regA, regB : out std_logic_vector(31 downto 0)
 	);
-end entity filtro;
+end entity registersBank;
 
-architecture rtl of filtro is
-
-	signal a: signed (7 downto 0);
-	signal b: signed (7 downto 0);
-	signal c: signed (7 downto 0);
-	signal d: signed (7 downto 0);
-
+architecture rtl of registersBank is
+	type registros_array is array (0 to 31) of std_logic_vector (31 downto 0);
+	signal regs : registros_array;
 begin
+	-- reset síncrono
+	sync:process(clk, reset)
+	begin
 
-  sync:process(clk, reset)
-  begin
+		if rising_edge(clk) then 
+			if reset = '1' then
+				for I in 0 to 31 loop
+					regs(0) <= std_logic_vector(to_unsigned(I, regA'length));
+				end loop;
+			else
+				if EscrReg = '1' then
+					regs(to_integer(unsigned(rd))) <= rdValue;
+				end if;
 
-	res <= a*b + c*d;
+				-- ponemos las salidas al valor de los registros
+				regA <= regs(to_integer(unsigned(rs)));
+				regB <= regs(to_integer(unsigned(rt)));
 
-	if rising_edge(clk) then 
-		if reset = '1' then 
-			a <= "00000000";
-			b <= "00000000";
-			c <= "00000000";
-			outro <= "00000000";
-		else
-			a <= intro;
-			b <= a;
-			c <= b;
-			d <= c;
-			outro <= c;
+			end if;
+		end if; 
 
-		end if;
-	end if; 
-  
-  end process;
+	end process;
 
 end architecture rtl;

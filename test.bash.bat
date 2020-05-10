@@ -40,28 +40,17 @@ if ! [ -x "$(command -v gtkwave)" ]; then
     exit 1
 fi
 
-ghdl -a $IEEE_FLAGS filtro.vhd
-ghdl -a $IEEE_FLAGS TB_filtro1.vhd
-ghdl -a $IEEE_FLAGS TB_filtro2.vhd
+ghdl -a $IEEE_FLAGS registersBank.vhd
+ghdl -a $IEEE_FLAGS TB_registersBank.vhd
 
-ghdl -e $IEEE_FLAGS filtro
-ghdl -e $IEEE_FLAGS tb_filtro1
-ghdl -e $IEEE_FLAGS tb_filtro2
+ghdl -e $IEEE_FLAGS registersBank
+ghdl -e $IEEE_FLAGS tb_registersBank
 
-ghdl -r $IEEE_FLAGS tb_filtro1 --vcd=tb_filtro1_wave.vcd
-
-# Esto es un fastidio, al salir con failure me detecta como que no
-# se ha terminado bien y aborta el script, por lo que tengo que desactivar
-# la política de detección de fallos
-set +e
-# Simular
-ghdl -r $IEEE_FLAGS tb_filtro2 --vcd=tb_filtro2_wave.vcd
-# Y volverla a activar
-set -e
+ghdl -r $IEEE_FLAGS tb_registersBank --vcd=tb_registersBank_wave.vcd
 
 
-gtkwave tb_filtro1_wave.vcd 2> /dev/null & \
-gtkwave tb_filtro2_wave.vcd 2> /dev/null
+gtkwave tb_registersBank_wave.vcd 2> /dev/null # & \
+#gtkwave tb_filtro2_wave.vcd 2> /dev/null
 
 wait
 
@@ -76,11 +65,9 @@ pushd "$SRCPATH" > /dev/null
 rm ./*.o
 rm ./*.cf
 
-rm ./filtro
-rm ./tb_filtro1
-rm ./tb_filtro1_wave.vcd
-rm ./tb_filtro2
-rm ./tb_filtro2_wave.vcd
+rm ./registersBank
+rm ./tb_registersBank
+rm ./tb_registersBank_wave.vcd
 
 popd > /dev/null
 
