@@ -17,6 +17,10 @@ architecture rtl of registersBank is
 	type registros_array is array (0 to 31) of std_logic_vector (31 downto 0);
 	signal regs : registros_array;
 begin
+	-- ponemos las salidas al valor de los registros (async)
+	regA <= regs(to_integer(unsigned(rs)));
+	regB <= regs(to_integer(unsigned(rt)));
+
 	-- reset síncrono
 	sync:process(clk, reset)
 	begin
@@ -31,9 +35,6 @@ begin
 					regs(to_integer(unsigned(rd))) <= rdValue;
 				end if;
 
-				-- ponemos las salidas al valor de los registros
-				regA <= regs(to_integer(unsigned(rs)));
-				regB <= regs(to_integer(unsigned(rt)));
 
 			end if;
 		end if; 
