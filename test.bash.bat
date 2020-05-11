@@ -84,13 +84,24 @@ exit # Exis script on *NIX
 : # WINDOWS CMD SCRIPT # : [cosas de xabi]
 
 :WINDOWS
-pushd src
-ghdl -a --ieee=synopsys registersBank.vhd
-ghdl -a --ieee=synopsys TB_registersBank.vhd
 
-ghdl -e --ieee=synopsys registersBank
-ghdl -e --ieee=synopsys tb_registersBank
+@echo off
 
-ghdl -r --ieee=synopsys tb_registersBank --vcd=tb_registersBank_wave.vcd
+set "IEEE_FLAGS=--ieee=synopsys"
+
+set "mypath=%~dp0"
+
+:: Pushd con el path del ejecutable, para poder ejecutar el .bat
+:: independientemente del current working directory
+pushd "%mypath:~0,-1%\src"
+ghdl -a %IEEE_FLAGS% registersBank.vhd
+ghdl -a %IEEE_FLAGS% TB_registersBank.vhd
+
+ghdl -e %IEEE_FLAGS% registersBank
+ghdl -e %IEEE_FLAGS% tb_registersBank
+
+ghdl -r %IEEE_FLAGS% tb_registersBank --vcd=tb_registersBank_wave.vcd
+
+:: Iniciamos gtkwave en segundo plano
+start ..\..\..\gtkwave\bin\gtkwave tb_registersBank_wave.vcd
 popd
-..\..\gtkwave\bin\gtkwave src\tb_registersBank_wave.vcd
