@@ -27,10 +27,6 @@ SRCPATH="$SCRIPTPATH/src"
 pushd "$SRCPATH" > /dev/null
 
 # Test programs
-if ! [ -x "$(command -v bash)" ]; then
-    echo 'Error: bash is not installed.' >&2
-    exit 1
-fi
 if ! [ -x "$(command -v ghdl)" ]; then
     echo 'Error: ghdl is not installed.' >&2
     exit 1
