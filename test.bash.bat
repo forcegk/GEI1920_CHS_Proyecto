@@ -90,14 +90,18 @@ set "mypath=%~dp0"
 :: Pushd con el path del ejecutable, para poder ejecutar el .bat
 :: independientemente del current working directory
 pushd "%mypath:~0,-1%\src"
-ghdl -a %IEEE_FLAGS% registersBank.vhd
-ghdl -a %IEEE_FLAGS% TB_registersBank.vhd
+ghdl -a %IEEE_FLAGS% registersBank.vhd || goto :error
+ghdl -a %IEEE_FLAGS% TB_registersBank.vhd || goto :error
 
-ghdl -e %IEEE_FLAGS% registersBank
-ghdl -e %IEEE_FLAGS% tb_registersBank
+ghdl -e %IEEE_FLAGS% registersBank || goto :error
+ghdl -e %IEEE_FLAGS% tb_registersBank || goto :error
 
-ghdl -r %IEEE_FLAGS% tb_registersBank --vcd=tb_registersBank_wave.vcd
+ghdl -r %IEEE_FLAGS% tb_registersBank --vcd=tb_registersBank_wave.vcd || goto :error
 
 :: Iniciamos gtkwave en segundo plano
-start ..\..\..\gtkwave\bin\gtkwave tb_registersBank_wave.vcd
+start ..\..\..\gtkwave\bin\gtkwave tb_registersBank_wave.vcd || goto :error
 popd
+exit
+
+:error
+exit /b %errorlevel%
