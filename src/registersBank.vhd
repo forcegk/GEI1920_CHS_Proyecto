@@ -21,6 +21,9 @@ begin
 	regA <= regs(to_integer(unsigned(rs)));
 	regB <= regs(to_integer(unsigned(rt)));
 
+	-- ponemos el registro $0 a 0
+	regs(0) <= "00000000000000000000000000000000";
+
 	-- reset síncrono
 	sync:process(clk, reset)
 	begin
@@ -32,10 +35,11 @@ begin
 				end loop;
 			else
 				if EscrReg = '1' then
-					regs(to_integer(unsigned(rd))) <= rdValue;
+					-- no debemos sobreescribir el $0
+					if rd /= "00000" then
+						regs(to_integer(unsigned(rd))) <= rdValue;
+					end if;
 				end if;
-
-
 			end if;
 		end if; 
 
