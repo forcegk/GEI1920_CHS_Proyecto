@@ -22,7 +22,7 @@ signal rs, rt, rd : std_logic_vector(4 downto 0);
 signal rdValue, regA, regB : std_logic_vector(31 downto 0);
 constant NUM_CICLOS : integer := 20;
 
-constant NUM_COL : integer := 5;
+constant NUM_COL : integer := 7;
 type t_integer_array is array(integer range <>) of integer;
 file file_handler : text open read_mode is "tb.dat";
 
@@ -43,11 +43,8 @@ begin
 	
 	reloj: process
 	begin
-		for i in 1 to NUM_CICLOS * 2  + 6 loop
-			clk <= not clk;
-			wait for 0.5 ns;
-		end loop;
-		wait;
+		clk <= not clk;
+		wait for 0.5 ns;
 	end process;
 
 	-- creando el reset
@@ -86,13 +83,21 @@ begin
 			rs <= std_logic_vector(to_unsigned(v_data_read(1),rs'length));
 			rt <= std_logic_vector(to_unsigned(v_data_read(2),rt'length));
 			rd <= std_logic_vector(to_unsigned(v_data_read(3),rd'length));
-			rdValue <= std_logic_vector(to_unsigned(v_data_read(4), rdValue'length));
+			rdValue <= std_logic_vector(to_unsigned(v_data_read(4),rdValue'length));
 			
 			EscrReg <= to_unsigned(v_data_read(5), 1)(0);
+
+			assert (std_logic_vector(to_unsigned(v_data_read(6),regA'length)) = regA)
+				report "Error en el valor de regA"
+				severity error;
 			
+			assert (std_logic_vector(to_unsigned(v_data_read(7),regB'length)) = regB)
+				report "Error en el valor de regB"
+				severity error;
+
 		end loop;
-		wait for 3 ns;
-		assert false report "se ha terminado" severity failure;
+		wait for 2.5 ns; -- esperamos dos ciclos...
+		assert false report "Se ha terminado sin errores" severity failure;
 		wait;
 	
 	end process;

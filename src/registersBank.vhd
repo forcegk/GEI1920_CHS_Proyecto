@@ -20,12 +20,11 @@ begin
 	-- ponemos las salidas al valor de los registros (async)
 	regA <= regs(to_integer(unsigned(rs)));
 	regB <= regs(to_integer(unsigned(rt)));
-
-	-- ponemos el registro $0 a 0
-	regs(0) <= "00000000000000000000000000000000";
-
+	
 	sync:process(clk, reset)
 	begin
+		-- ponemos el registro $0 a 0
+		regs(0) <= "00000000000000000000000000000000";
 		
 		if rising_edge(clk) then 
 			-- reset síncrono
