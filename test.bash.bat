@@ -96,7 +96,7 @@ ghdl -a %IEEE_FLAGS% TB_registersBank.vhd || goto :error
 ghdl -e %IEEE_FLAGS% registersBank || goto :error
 ghdl -e %IEEE_FLAGS% tb_registersBank || goto :error
 
-ghdl -r %IEEE_FLAGS% tb_registersBank --vcd=tb_registersBank_wave.vcd || goto :error
+ghdl -r %IEEE_FLAGS% tb_registersBank --vcd=tb_registersBank_wave.vcd
 
 :: Iniciamos gtkwave en segundo plano
 start ..\..\..\gtkwave\bin\gtkwave tb_registersBank_wave.vcd || goto :error
