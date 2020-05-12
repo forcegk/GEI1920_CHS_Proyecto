@@ -26,6 +26,8 @@ constant NUM_COL : integer := 7;
 type t_integer_array is array(integer range <>) of integer;
 file file_handler : text open read_mode is "tb.dat";
 
+signal temp1, temp2 : std_logic_vector(31 downto 0) := "00000000000000000000000000000000";
+
 begin
 	
 	dut: registersBank port map(
@@ -87,11 +89,15 @@ begin
 			
 			EscrReg <= to_unsigned(v_data_read(5), 1)(0);
 
-			assert (std_logic_vector(to_unsigned(v_data_read(6),regA'length)) = regA)
+
+			temp1 <= std_logic_vector(to_unsigned(v_data_read(6),regA'length));
+			temp2 <= std_logic_vector(to_unsigned(v_data_read(7),regB'length));
+
+			assert (temp1 = regA)
 				report "Error en el valor de regA"
 				severity error;
 			
-			assert (std_logic_vector(to_unsigned(v_data_read(7),regB'length)) = regB)
+			assert (temp2 = regB)
 				report "Error en el valor de regB"
 				severity error;
 
