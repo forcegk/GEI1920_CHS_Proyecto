@@ -24,11 +24,11 @@ begin
 	-- ponemos el registro $0 a 0
 	regs(0) <= "00000000000000000000000000000000";
 
-	-- reset síncrono
 	sync:process(clk, reset)
 	begin
-
+		
 		if rising_edge(clk) then 
+			-- reset síncrono
 			if reset = '1' then
 				for I in 1 to 31 loop
 					regs(I) <= std_logic_vector(to_unsigned(I, regA'length));
