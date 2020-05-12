@@ -24,7 +24,7 @@ constant NUM_CICLOS : integer := 20;
 
 constant NUM_COL : integer := 5;
 type t_integer_array is array(integer range <>) of integer;
-file file_handler : text open read_mode is "tb_in.dat";
+file file_handler : text open read_mode is "tb.dat";
 
 begin
 	
