@@ -30,7 +30,7 @@ begin
 
 		if rising_edge(clk) then 
 			if reset = '1' then
-				for I in 0 to 31 loop
+				for I in 1 to 31 loop
 					regs(I) <= std_logic_vector(to_unsigned(I, regA'length));
 				end loop;
 			else
